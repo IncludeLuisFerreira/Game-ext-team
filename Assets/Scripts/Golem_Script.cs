@@ -10,7 +10,7 @@ public class Golem_Script : MonoBehaviour
 {
 
     public enum golemState {Attacking_1, None}
-    golemState state = golemState.None;
+    [SerializeField]golemState state = golemState.None;
     [SerializeField]float vida = 15f;
     [SerializeField]float speed = 2f;
     [SerializeField]float decendingSpeed = 1.5f;
@@ -26,7 +26,9 @@ public class Golem_Script : MonoBehaviour
     [SerializeField]float originalYPosition;
 
     [Header("Campos de duração das habilidades")]
-    [SerializeField]float duration_Earthqueak = 2.0f;
+    [SerializeField]float duration_Earthquake = 2.0f;
+    [SerializeField]int countEarthquake = 2;
+    int count = 0;
 
     private FollowingClass follow;
 
@@ -41,12 +43,15 @@ public class Golem_Script : MonoBehaviour
     }
  
     void Update()
-    {
+    { 
         Flip();
         EnemyAttack();
-        if (state == golemState.None) {
-            follow.Follow(transform);
+        if (state == golemState.Attacking_1)
+        {
+            anim.SetBool("Run", false);
+            return;
         }
+        follow.Follow(transform);
     }
 
     float TargetDistance()
@@ -59,7 +64,7 @@ public class Golem_Script : MonoBehaviour
         if (Target.position.x > transform.position.x && facingLeft)
         {
             transform.localScale = new Vector3(1, 1, 0);
-            facingLeft = false;
+            facingLeft = false; 
         }
 
         if (Target.position.x < transform.position.x && !facingLeft)
@@ -95,6 +100,7 @@ public class Golem_Script : MonoBehaviour
         {
             isAcending = false;
         }
+        count = 0;
     }
 
     void StartDecending()
@@ -122,8 +128,14 @@ public class Golem_Script : MonoBehaviour
         
         if (!isDecending && transform.position.y -1.35 <= groundYPosition && TargetDistance() <= 3f)
         {
-            anim.SetTrigger("Attack");
-            Earthqueak();
+            if (count < countEarthquake) {
+                StartCoroutine(Earthquake());
+                count++;
+            }
+        }
+
+        if (state == golemState.Attacking_1) {
+            return ;
         }
 
         if (transform.position.y - 1.35 <= groundYPosition && TargetDistance() > 3f)
@@ -148,13 +160,15 @@ public class Golem_Script : MonoBehaviour
 
     /************************ Ataque 1************************/
 
-
-    IEnumerable Earthqueak()
+    IEnumerator Earthquake()
     {
         state = golemState.Attacking_1;
-        rb.velocity = new Vector2(0f, 0f);
-        yield return  new WaitForSeconds(duration_Earthqueak);
+        rb.velocity = Vector2.zero;
+        anim.SetTrigger("Attack");
+        yield return  new WaitForSeconds(duration_Earthquake);
         state = golemState.None;
-        
     }
+
+    /**********************************************************/
+
 }

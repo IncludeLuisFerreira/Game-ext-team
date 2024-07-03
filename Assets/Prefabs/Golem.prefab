@@ -193,11 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87389606d152e24586b525533309d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 1
   vida: 15
   speed: 1.5
   decendingSpeed: 1.5
   Target: {fileID: 0}
-  MinDistance: 5
-  MaxDistance: 10
+  MinDistance: 10
+  MaxDistance: 20
   groundYPosition: 0
   originalYPosition: 0
+  duration_Earthquake: 2
+  countEarthquake: 2

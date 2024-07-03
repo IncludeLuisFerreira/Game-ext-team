@@ -790,6 +790,10 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1021617907837629876, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: speed
       value: 1.5
@@ -800,15 +804,23 @@ PrefabInstance:
       objectReference: {fileID: 1102547382}
     - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: MaxDistance
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: MinDistance
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: originalYPosition
       value: 1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
+      propertyPath: duration_Earthquake
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
+      propertyPath: duration_Earthqueak
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4042916029423743233, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: m_LocalPosition.x
