@@ -194,4 +194,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vida: 15
+  speed: 1.5
+  decendingSpeed: 1.5
   Target: {fileID: 0}
+  MinDistance: 5
+  MaxDistance: 10
+  groundYPosition: 0
+  originalYPosition: 0
