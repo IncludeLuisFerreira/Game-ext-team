@@ -64,8 +64,10 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.24f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\PlayerClass.cs" />
     <Compile Include="Assets\Scripts\Golem_Script.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Animation\Player\Player_control.cs" />
     <Compile Include="Assets\Scripts\FollowingClass.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
@@ -78,7 +80,7 @@
   <ItemGroup>
     <None Include="Assets\Art\Bringer Of Death\License.txt" />
     <None Include="Assets\Art\Warrior free set\License.txt" />
-    <None Include="Assets\Art\Hero and Opponents\license.txt" />
+    <None Include="Assets\Art\Enemy Galore 1 - Pixel Art\Sprites\Hero and Opponents\license.txt" />
     <None Include="Assets\Art\Enemy Galore 1 - Pixel Art\Read Me.txt" />
     <None Include="Assets\Art\Warrior free set\Contact.txt" />
     <None Include="Assets\Art\Bringer Of Death\Contact.txt" />

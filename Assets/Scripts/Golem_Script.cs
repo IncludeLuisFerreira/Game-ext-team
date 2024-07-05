@@ -31,11 +31,13 @@ public class Golem_Script : MonoBehaviour
     int count = 0;
 
     private FollowingClass follow;
+    [SerializeField]private Transform Efecxs;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        
     }
     void Start()
     {
@@ -43,14 +45,15 @@ public class Golem_Script : MonoBehaviour
     }
  
     void Update()
-    { 
-        Flip();
-        EnemyAttack();
+    {
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
         if (state == golemState.Attacking_1)
         {
             anim.SetBool("Run", false);
             return;
         }
+        Flip();
+        EnemyAttack();
         follow.Follow(transform);
     }
 
@@ -132,6 +135,8 @@ public class Golem_Script : MonoBehaviour
                 StartCoroutine(Earthquake());
                 count++;
             }
+
+            // Terá mais ataques para preencher a exceção
         }
 
         if (state == golemState.Attacking_1) {
@@ -171,4 +176,12 @@ public class Golem_Script : MonoBehaviour
 
     /**********************************************************/
 
+
+
+    /************************ Dano do player ************************/
+
+    void Damage()
+    {
+        
+    }
 }
