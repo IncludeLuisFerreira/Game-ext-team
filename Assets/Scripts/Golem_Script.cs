@@ -9,44 +9,52 @@ using UnityEngine;
 public class Golem_Script : MonoBehaviour
 {
 
-    public enum golemState {Attacking_1, None}
+    public enum golemState {Dash, Attacking_1, None}
     [SerializeField]golemState state = golemState.None;
-    [SerializeField]float vida = 15f;
+
+    [Header("Atributos")]
+    [SerializeField]int MaxHelth = 15;
     [SerializeField]float speed = 2f;
     [SerializeField]float decendingSpeed = 1.5f;
-    [SerializeField]Transform Target;
     [SerializeField]float MinDistance = 10f;
     [SerializeField]float MaxDistance = 15f;
-    Rigidbody2D rb;
-    Animator anim;
-    bool facingLeft = true;
-    bool isDecending = false;
-    bool isAcending = false;
     [SerializeField]float groundYPosition;
     [SerializeField]float originalYPosition;
-
-    [Header("Campos de duração das habilidades")]
     [SerializeField]float duration_Earthquake = 2.0f;
     [SerializeField]int countEarthquake = 2;
     int count = 0;
 
+
+    [Header("Variáveis booleanas")]
+    [SerializeField]bool facingLeft = true;
+    [SerializeField]bool isDecending = false;
+    [SerializeField]bool isAcending = false;
+    [SerializeField]bool canDash = true;
+
+    [Header("Transforms")]
+    [SerializeField]Transform Target;
+
     private FollowingClass follow;
-    [SerializeField]private Transform Efecxs;
+    private EnemyClass Golem;
+    Rigidbody2D rb;
+    Animator anim;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        Golem = GetComponent<EnemyClass>();
         
     }
     void Start()
     {
         follow = new(Target, anim, speed, MaxDistance, MinDistance);
+        Golem = new(MaxHelth);
     }
  
     void Update()
     {
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy"), true);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.enemyLayer, true);
         if (state == golemState.Attacking_1)
         {
             anim.SetBool("Run", false);
@@ -54,6 +62,7 @@ public class Golem_Script : MonoBehaviour
         }
         Flip();
         EnemyAttack();
+        //CounterDash();
         follow.Follow(transform);
     }
 
@@ -162,6 +171,13 @@ public class Golem_Script : MonoBehaviour
         }
     }
 
+    void CounterDash()
+    {
+        if (canDash && TargetDistance() < 3f) {
+            StartCoroutine(CounterDashEvent());
+        }
+    }
+
 
     /************************ Ataque 1************************/
 
@@ -176,12 +192,21 @@ public class Golem_Script : MonoBehaviour
 
     /**********************************************************/
 
-
+    IEnumerator CounterDashEvent()
+    {
+        yield return new WaitForSeconds(0);
+/*         state = golemState.Dash;
+        Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.playerLayer, true);
+        anim.SetTrigger("Dash");
+        canDash = false;
+        yield return new WaitForSeconds(1.2f);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.playerLayer, false);
+        state = golemState.None;
+        yield return new WaitForSeconds(5);
+        canDash = true ; 
+ */    }
 
     /************************ Dano do player ************************/
 
-    void Damage()
-    {
-        
-    }
+   
 }

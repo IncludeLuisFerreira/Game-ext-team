@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 5531269932194635328}
   - component: {fileID: 1021617907837629876}
   - component: {fileID: 2479673822043302427}
+  - component: {fileID: 2189237378950803030}
   m_Layer: 6
   m_Name: Golem
   m_TagString: Untagged
@@ -115,7 +116,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.45, y: 1.72, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3912905410442142681}
@@ -161,7 +162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -4993762626158569028, guid: 43ea6403ff0866d41a323ec4c80e9612, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -226,7 +227,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.10045087, y: -0.14565444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -237,7 +238,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.91259885, y: 1.0030041}
   m_EdgeRadius: 0
 --- !u!50 &1021617907837629876
 Rigidbody2D:
@@ -251,9 +252,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 5
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -278,14 +279,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87389606d152e24586b525533309d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
-  vida: 15
+  state: 2
+  MaxHelth: 15
   speed: 1.5
   decendingSpeed: 1.5
-  Target: {fileID: 0}
   MinDistance: 10
   MaxDistance: 20
   groundYPosition: 0
-  originalYPosition: 0
-  duration_Earthquake: 2
-  countEarthquake: 2
+  originalYPosition: 1.72
+  duration_Earthquake: 1.5
+  countEarthquake: 20
+  facingLeft: 1
+  isDecending: 0
+  isAcending: 0
+  canDash: 1
+  Target: {fileID: 0}
+--- !u!114 &2189237378950803030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360551511240615372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f38cbb9b673b84c868f03c8a65eae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHelth: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64

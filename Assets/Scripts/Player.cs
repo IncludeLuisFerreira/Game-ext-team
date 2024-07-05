@@ -15,20 +15,25 @@ public class Player : MonoBehaviour
     public enum States {Attacking, Hurt, Running, Jumping, Rolling, Idle}
     States playerStates;
     [Header("Atributos do player")]
-    [SerializeField]float vida = 10;
-    [SerializeField]float estamina = 5;
+    [SerializeField]float MaxHelth = 50;
     [SerializeField]float rollTime = 1f;
     [SerializeField]float rollForce = 6f;
     [SerializeField]float rollCoolDown = 3f;
-    public bool canRoll;
-
     [SerializeField]float speed = 5f;
     [SerializeField]float jumpForce = 5f;
-    [SerializeField] LayerMask whatIsGround;
-    [SerializeField] Transform groundCheck;
+    [SerializeField]float attackRange = 0.5f;
+    [SerializeField]int attackDamage = 5;
+
+    [Header("LayerMasks usadads")]
+    [SerializeField]LayerMask whatIsGround;
+    [SerializeField]Transform groundCheck;
+    [SerializeField]Transform attackPoint;
+    [SerializeField]LayerMask enemyLayer;
+
+    [Header("Variáveis booleanas")]
     public bool grounded;
-    bool isRight = true;
-    Vector3 back;
+    public bool isRight = true;
+    public bool canRoll;
 
     Rigidbody2D rb;
     Animator anim;
@@ -41,7 +46,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {    
-        back = transform.position;
         grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, whatIsGround);
         anim.SetBool("Grounded", grounded == true);
         if (playerStates == States.Rolling) {
@@ -52,7 +56,6 @@ public class Player : MonoBehaviour
         Attack();
         Roll();
     }
-
 
     /****************************** Movimentos do Player ******************************/
     void Move()
@@ -133,15 +136,30 @@ public class Player : MonoBehaviour
 
     /*******************************************************************************/
 
-
     void Attack()
     {
         if (grounded && Input.GetButtonDown("Attack"))
         {
+            Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+            foreach(Collider2D enemy in hitEnemy) {
+                EnemyClass teste = enemy.GetComponent<EnemyClass>();
+
+                if (teste) {
+                    teste.TakeDamage(attackDamage);
+                }
+            }
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Attack");
             StartCoroutine(AttackTime());
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position,attackRange);
     }
 
     IEnumerator AttackTime()
@@ -150,5 +168,4 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerStates = States.Idle;
     }
-
 }
