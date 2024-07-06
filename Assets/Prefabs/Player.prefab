@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7038826758578868908}
   - component: {fileID: 2086496128772164897}
   - component: {fileID: 3635607613248548812}
+  - component: {fileID: 5078653967676794222}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -181,24 +182,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0fce88940b6254983fc62848b79541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 10
-  estamina: 5
+  MaxHelth: 50
   rollTime: 0.75
   rollForce: 10
   rollCoolDown: 1.25
-  canRoll: 1
   speed: 8
   jumpForce: 5
+  attackRange: 0.61
+  attackDamage: 5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   groundCheck: {fileID: 3267987935923400478}
   attackPoint: {fileID: 4002540722086261971}
-  attackRange: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   grounded: 0
+  isRight: 1
+  canRoll: 1
 --- !u!61 &3635607613248548812
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -244,6 +246,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.37888, y: 1.9858327}
   m_EdgeRadius: 0
+--- !u!114 &5078653967676794222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652013093221997357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfb75ddee4954543a45c2d2452e7383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7241265259093333093
 GameObject:
   m_ObjectHideFlags: 0

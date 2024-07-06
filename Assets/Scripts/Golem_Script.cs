@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Golem_Script : MonoBehaviour
@@ -15,13 +16,19 @@ public class Golem_Script : MonoBehaviour
     [Header("Atributos")]
     [SerializeField]int MaxHelth = 15;
     [SerializeField]float speed = 2f;
+    [SerializeField]int damage = 5;
     [SerializeField]float decendingSpeed = 1.5f;
     [SerializeField]float MinDistance = 10f;
     [SerializeField]float MaxDistance = 15f;
     [SerializeField]float groundYPosition;
     [SerializeField]float originalYPosition;
     [SerializeField]float duration_Earthquake = 2.0f;
+    [SerializeField]float coolDownEarthquake = 3.25f;
+    [SerializeField]float dashForce = 10f;
+    [SerializeField]float dashTime = 0.5f;
+    [SerializeField]float dashCoolDown = 2.5f;
     [SerializeField]int countEarthquake = 2;
+    [SerializeField]float fastHitRange;
     int count = 0;
 
 
@@ -29,40 +36,45 @@ public class Golem_Script : MonoBehaviour
     [SerializeField]bool facingLeft = true;
     [SerializeField]bool isDecending = false;
     [SerializeField]bool isAcending = false;
-    [SerializeField]bool canDash = true;
+    public bool canDash = true;
+    public bool canEarthquake = true;
 
     [Header("Transforms")]
     [SerializeField]Transform Target;
+    [SerializeField]LayerMask playerLayer;
+    [SerializeField]Transform attackPoint;
 
     private FollowingClass follow;
     private EnemyClass Golem;
     Rigidbody2D rb;
     Animator anim;
+    Collider2D col2d;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         Golem = GetComponent<EnemyClass>();
-        
+        col2d = GetComponent<Collider2D>();
     }
     void Start()
     {
         follow = new(Target, anim, speed, MaxDistance, MinDistance);
-        Golem = new(MaxHelth);
+        Golem = new(MaxHelth);        
     }
  
     void Update()
     {
+        Golem.canBeDamage = true;
         Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.enemyLayer, true);
-        if (state == golemState.Attacking_1)
+        if (state == golemState.Attacking_1 || state == golemState.Dash)
         {
             anim.SetBool("Run", false);
             return;
         }
         Flip();
         EnemyAttack();
-        //CounterDash();
+        CounterDash();
         follow.Follow(transform);
     }
 
@@ -128,7 +140,7 @@ public class Golem_Script : MonoBehaviour
 
     void Attack1()
     {
-        if (TargetDistance() < 3f && !isDecending)
+        if (TargetDistance() < 5f && !isDecending)
         {
             StartDecending(); 
         }
@@ -138,21 +150,19 @@ public class Golem_Script : MonoBehaviour
             Descending();
         }
         
-        if (!isDecending && transform.position.y -1.35 <= groundYPosition && TargetDistance() <= 3f)
+        if (!isDecending && transform.position.y -1.35 <= groundYPosition && TargetDistance() <= 5f && canEarthquake && !canDash)
         {
             if (count < countEarthquake) {
                 StartCoroutine(Earthquake());
-                count++;
+                //count++;
             }
-
-            // Terá mais ataques para preencher a exceção
-        }
+        } 
 
         if (state == golemState.Attacking_1) {
             return ;
         }
 
-        if (transform.position.y - 1.35 <= groundYPosition && TargetDistance() > 3f)
+        if (transform.position.y - 1.35 <= groundYPosition && TargetDistance() > 5f)
         {
            StartAcending();
         }
@@ -165,7 +175,7 @@ public class Golem_Script : MonoBehaviour
 
     void Attack3()
     {
-        if (TargetDistance() < 3)
+        if (TargetDistance() < 5 && canEarthquake)
         {
             anim.SetTrigger("Attack3");
         }
@@ -173,7 +183,8 @@ public class Golem_Script : MonoBehaviour
 
     void CounterDash()
     {
-        if (canDash && TargetDistance() < 3f) {
+        if (canDash && TargetDistance() < 2f && Input.GetButtonDown("Attack")) {
+            StopCoroutine(Earthquake());
             StartCoroutine(CounterDashEvent());
         }
     }
@@ -183,28 +194,59 @@ public class Golem_Script : MonoBehaviour
 
     IEnumerator Earthquake()
     {
+        canEarthquake = false;
         state = golemState.Attacking_1;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Attack");
+        col2d.enabled = false;
         yield return  new WaitForSeconds(duration_Earthquake);
+        col2d.enabled = true;
         state = golemState.None;
+        yield return new WaitForSeconds(coolDownEarthquake);
+        canEarthquake = true;
     }
 
     /**********************************************************/
 
     IEnumerator CounterDashEvent()
     {
-        yield return new WaitForSeconds(0);
-/*         state = golemState.Dash;
-        Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.playerLayer, true);
-        anim.SetTrigger("Dash");
+        state = golemState.Dash;
         canDash = false;
-        yield return new WaitForSeconds(1.2f);
-        Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.playerLayer, false);
+
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"), true);
+        col2d.enabled = false;
+        if (facingLeft)
+        {
+            rb.velocity = new Vector2(-dashForce, rb.velocity.y);
+            transform.localScale = new Vector3(1, 1, 0);
+        }
+        else
+        {
+            rb.velocity = new Vector2(dashForce, rb.velocity.y);
+            transform.localScale = new Vector3(-1, 1, 0);
+
+        }
+        
+        anim.SetTrigger("Dash");
+        yield return new WaitForSeconds(dashTime);
+        Physics2D.IgnoreLayerCollision(gameObject.layer,LayerMask.NameToLayer("Player"), false);
+        col2d.enabled = true;
+        rb.velocity = Vector2.zero;
+        Collider2D[] hit = Physics2D.OverlapCircleAll(attackPoint.position, fastHitRange, LayerMask.NameToLayer("Player"));
+        foreach (Collider2D player in hit)
+        {
+            player.GetComponent<PlayerClass>().TakeDamage(damage);
+        }
+        yield return new WaitForSeconds(1);
         state = golemState.None;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(dashCoolDown);
         canDash = true ; 
- */    }
+     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, fastHitRange);
+    }
 
     /************************ Dano do player ************************/
 

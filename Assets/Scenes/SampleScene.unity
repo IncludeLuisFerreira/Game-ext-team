@@ -132,6 +132,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2189237378950803030, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
+      propertyPath: MaxHelth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189237378950803030, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -139,6 +143,14 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1102547382}
+    - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
+      propertyPath: fastHitRange
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479673822043302427, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4469723253272253548, guid: 67f0555807686244aab1c9f1f0187893, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -340,7 +352,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4902248, y: 4.047696, z: -2}
+  m_LocalPosition: {x: -2.8018918, y: 4.047696, z: -2}
   m_LocalScale: {x: 0.68, y: 0.68, z: 1.36}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -779,7 +791,7 @@ Transform:
   m_GameObject: {fileID: 1437680370}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4902248, y: 4.047696, z: -2}
+  m_LocalPosition: {x: -2.8018918, y: 4.047696, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -810,9 +822,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2086496128772164897, guid: 5a2d16ea5911e124ca8310e7a92d95e7, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 64
+    - target: {fileID: 1652013093221997357, guid: 5a2d16ea5911e124ca8310e7a92d95e7, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3635607613248548812, guid: 5a2d16ea5911e124ca8310e7a92d95e7, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -899,6 +911,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1437680372}
-  - {fileID: 482232268344235281}
   - {fileID: 534548905}
+  - {fileID: 482232268344235281}
   - {fileID: 155628124}

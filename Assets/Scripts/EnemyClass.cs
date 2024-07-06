@@ -6,10 +6,11 @@ using UnityEngine;
 public class EnemyClass : MonoBehaviour
 {
     public int MaxHelth;
+    public bool canBeDamage = true;
     int currentHelth;
 
     Animator anim;
-    
+    Rigidbody2D rb;
     public LayerMask enemyLayer;
     
 
@@ -17,20 +18,25 @@ public class EnemyClass : MonoBehaviour
     {
         this.MaxHelth = MaxHelth;
     }
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+    }   
     void Start()
     {
         currentHelth = MaxHelth;
-        Debug.Log($"{currentHelth}");
-        anim = GetComponent<Animator>();
     }
 
-    public void TakeDamage(int damage) 
-    {
-        Debug.Log($"{name} recivid damage!");
-        currentHelth -= damage;
-        Debug.Log($"Health: {currentHelth}");
-        anim.SetTrigger("Hit");
 
+    public void TakeDamage(int damage, float localScale, bool canBeDamage) 
+    {
+        if (canBeDamage)
+        {    rb.velocity = new Vector2(localScale * 2.5f, rb.velocity.y);
+            currentHelth -= damage;
+            anim.SetTrigger("Hit");
+        }
         if (currentHelth <= 0) 
         {
             Die();
@@ -39,7 +45,6 @@ public class EnemyClass : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Enemy died!");
         anim.SetTrigger("Death");
     }
 

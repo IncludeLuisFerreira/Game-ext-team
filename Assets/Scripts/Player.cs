@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
 {
 
     public enum States {Attacking, Hurt, Running, Jumping, Rolling, Idle}
-    States playerStates;
+    States playerStates = States.Idle;
     [Header("Atributos do player")]
-    [SerializeField]float MaxHelth = 50;
+    int currentHelth;
     [SerializeField]float rollTime = 1f;
     [SerializeField]float rollForce = 6f;
     [SerializeField]float rollCoolDown = 3f;
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             return;
         }
         float axis = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(5 * axis, rb.velocity.y); 
+        rb.velocity = new Vector2(speed * axis, rb.velocity.y); 
         anim.SetFloat("Velocity.x", Mathf.Abs(rb.velocity.x));
         Flip(axis);
     }
@@ -142,11 +142,8 @@ public class Player : MonoBehaviour
         {
             Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
             foreach(Collider2D enemy in hitEnemy) {
-                EnemyClass teste = enemy.GetComponent<EnemyClass>();
-
-                if (teste) {
-                    teste.TakeDamage(attackDamage);
-                }
+                EnemyClass enclass = enemy.GetComponent<EnemyClass>();
+                enclass.TakeDamage(attackDamage, transform.localScale.x, enclass.canBeDamage);
             }
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Attack");
@@ -168,4 +165,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerStates = States.Idle;
     }
+
 }
