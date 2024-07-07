@@ -11,8 +11,8 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-
-    public enum States {Attacking, Hurt, Running, Jumping, Rolling, Idle}
+    public string Name = "MyOwnName";
+    public enum States {Attacking, Hurt, Running, Jumping, Rolling, Idle, Defende, None}
     States playerStates = States.Idle;
     [Header("Atributos do player")]
     int currentHelth;
@@ -29,32 +29,50 @@ public class Player : MonoBehaviour
     [SerializeField]Transform groundCheck;
     [SerializeField]Transform attackPoint;
     [SerializeField]LayerMask enemyLayer;
+    private PlayerClass playClass;
 
     [Header("Variáveis booleanas")]
     public bool grounded;
     public bool isRight = true;
     public bool canRoll;
+    public bool isDefending;
 
     Rigidbody2D rb;
     Animator anim;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        playClass = GetComponent<PlayerClass>();
+    }
     void Start()
     {
         canRoll = true;
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        playClass.Init(20);
     }
 
     void Update()
     {    
+        Defending();
         grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, whatIsGround);
         anim.SetBool("Grounded", grounded == true);
-        if (playerStates == States.Rolling) {
+        if (playerStates == States.Rolling || playerStates == States.Defende) {
             return;
         }
         Move();
         Jump();
         Attack();
         Roll();
+        teste();
+    }
+
+    void teste()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            playClass.TakeDamage(5, isDefending);
+        }
     }
 
     /****************************** Movimentos do Player ******************************/
@@ -148,6 +166,25 @@ public class Player : MonoBehaviour
             rb.velocity = Vector2.zero;
             anim.SetTrigger("Attack");
             StartCoroutine(AttackTime());
+        }
+    }
+
+    void Defending()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && grounded)
+        {
+            playerStates = States.Defende;
+            anim.SetBool("Defending", true);
+            isDefending = true;
+            rb.velocity = Vector2.zero;
+            anim.SetFloat("Velocity.x", 0);
+        }
+
+        if (Input.GetKeyUp(KeyCode.K) && grounded)
+        {
+            playerStates = States.None;
+            anim.SetBool("Defending", false);
+            isDefending = false; 
         }
     }
 

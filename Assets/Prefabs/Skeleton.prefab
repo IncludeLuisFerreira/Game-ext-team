@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 969299910672635586}
   - component: {fileID: 4684630725864614664}
   - component: {fileID: 4593813998246663042}
+  - component: {fileID: 7990874565803548059}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -147,7 +148,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17070913, y: 0}
+  m_Offset: {x: -0.059859514, y: -0.048069715}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -158,7 +159,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4265776, y: 2.55}
+  m_Size: {x: 1.2048783, y: 2.4878173}
   m_EdgeRadius: 0
 --- !u!95 &4684630725864614664
 Animator:
@@ -193,8 +194,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9841e30e489752a41b62607157172bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  MaxHelth: 120
+  currentHelth: 0
+  canBeDamage: 1
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  skStates: 0
   speed: 1.5
+  damage: 0
   maxDistance: 20
   minDistance: 15
-  facingLeft: 1
+  downTimeAttack1: 4.55
+  coolDownShild: 2
+  durationShild: 1.78
+  defenseReculForce: 2.5
+  delay: 1.2
+  Target: {fileID: 0}
+  canShilded: 0
+  canFollow: 0
+  facingLeft: 0
+  canFlip: 1
+--- !u!114 &7990874565803548059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4529875825132299538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f38cbb9b673b84c868f03c8a65eae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHelth: 20
+  currentHelth: 0
+  canBeDamage: 1
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64

@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &502124477502955412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8881690133623391173}
+  m_Layer: 6
+  m_Name: IceAttack_area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8881690133623391173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502124477502955412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8230897020334896961}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &850047991031575682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2819348367140745647}
+  m_Layer: 6
+  m_Name: Explosion_area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2819348367140745647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850047991031575682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8230897020334896961}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5123049998822270694
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +171,7 @@ Transform:
   m_GameObject: {fileID: 7625215688284673955}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.805, y: -0.257, z: 0}
+  m_LocalPosition: {x: 0.805, y: -0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,6 +214,8 @@ Transform:
   m_Children:
   - {fileID: 3912905410442142681}
   - {fileID: 5110456817309448531}
+  - {fileID: 2819348367140745647}
+  - {fileID: 8881690133623391173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6200353042135564149
@@ -259,7 +323,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10045087, y: -0.14565444}
+  m_Offset: {x: 0.041874707, y: -0.15354025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -270,7 +334,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.91259885, y: 1.0030041}
+  m_Size: {x: 0.8757101, y: 1.0245974}
   m_EdgeRadius: 0
 --- !u!50 &1021617907837629876
 Rigidbody2D:
@@ -312,27 +376,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 2
-  MaxHelth: 15
+  maxHealth: 15
   speed: 1.5
   damage: 5
-  decendingSpeed: 1.5
-  MinDistance: 10
-  MaxDistance: 20
+  descendingSpeed: 1.5
+  minDistance: 10
+  maxDistance: 15
   groundYPosition: 0
   originalYPosition: 1.72
-  duration_Earthquake: 1.5
-  coolDownEarthquake: 3.25
+  durationEarthquake: 2
+  cooldownEarthquake: 3.25
   dashForce: 5.5
   dashTime: 1.25
-  dashCoolDown: 2.5
+  dashCooldown: 2.5
   countEarthquake: 20
   fastHitRange: 0.35
+  restTime: 1
   facingLeft: 0
-  isDecending: 0
-  isAcending: 0
+  isDescending: 0
+  isAscending: 0
+  isDashing: 0
   canDash: 1
   canEarthquake: 1
-  Target: {fileID: 0}
+  target: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -349,8 +415,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f38cbb9b673b84c868f03c8a65eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHelth: 10
-  canBeDamage: 0
+  MaxHelth: 100
+  currentHelth: 0
+  canBeDamage: 1
+  anim: {fileID: 0}
+  rb: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

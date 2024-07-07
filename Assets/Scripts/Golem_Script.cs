@@ -1,73 +1,80 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Golem_Script : MonoBehaviour
 {
-
-    public enum golemState {Dash, Attacking_1, None}
-    [SerializeField]golemState state = golemState.None;
+    public enum GolemState { Dash, Attacking_1, None }
+    [SerializeField] GolemState state = GolemState.None;
 
     [Header("Atributos")]
-    [SerializeField]int MaxHelth = 15;
-    [SerializeField]float speed = 2f;
-    [SerializeField]int damage = 5;
-    [SerializeField]float decendingSpeed = 1.5f;
-    [SerializeField]float MinDistance = 10f;
-    [SerializeField]float MaxDistance = 15f;
-    [SerializeField]float groundYPosition;
-    [SerializeField]float originalYPosition;
-    [SerializeField]float duration_Earthquake = 2.0f;
-    [SerializeField]float coolDownEarthquake = 3.25f;
-    [SerializeField]float dashForce = 10f;
-    [SerializeField]float dashTime = 0.5f;
-    [SerializeField]float dashCoolDown = 2.5f;
-    [SerializeField]int countEarthquake = 2;
-    [SerializeField]float fastHitRange;
+    [SerializeField] int maxHealth = 15;
+    [SerializeField] float speed = 2f;
+    [SerializeField] int damage = 5;
+    [SerializeField] float descendingSpeed = 1.5f;
+    [SerializeField] float minDistance = 10f;
+    [SerializeField] float maxDistance = 15f;
+    [SerializeField] float groundYPosition;
+    [SerializeField] float originalYPosition;
+    [SerializeField] float durationEarthquake = 2.0f;
+    [SerializeField] float cooldownEarthquake = 3.25f;
+    [SerializeField] float dashForce = 10f;
+    [SerializeField] float dashTime = 0.5f;
+    [SerializeField] float dashCooldown = 2.5f;
+    [SerializeField] int countEarthquake = 2;
+    [SerializeField] float fastHitRange;
+    [SerializeField] float restTime = 1f;
     int count = 0;
 
-
     [Header("Variáveis booleanas")]
-    [SerializeField]bool facingLeft = true;
-    [SerializeField]bool isDecending = false;
-    [SerializeField]bool isAcending = false;
+    [SerializeField] bool facingLeft = true;
+    [SerializeField] bool isDescending = false;
+    [SerializeField] bool isAscending = false;
+    public bool isDashing;
     public bool canDash = true;
     public bool canEarthquake = true;
 
     [Header("Transforms")]
-    [SerializeField]Transform Target;
-    [SerializeField]LayerMask playerLayer;
-    [SerializeField]Transform attackPoint;
+    [SerializeField] Transform target;
+    [SerializeField] LayerMask playerLayer;
+    [SerializeField] Transform attackPoint;
 
     private FollowingClass follow;
-    private EnemyClass Golem;
-    Rigidbody2D rb;
-    Animator anim;
-    Collider2D col2d;
+    private EnemyClass golem;
+    private Rigidbody2D rb;
+    private Animator anim;
+    private Collider2D col2d;
+
+    private int playerLayerIndex;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        Golem = GetComponent<EnemyClass>();
+        golem = GetComponent<EnemyClass>();
         col2d = GetComponent<Collider2D>();
+
+        playerLayerIndex = LayerMask.NameToLayer("Player");
+        if (playerLayerIndex == -1)
+        {
+            Debug.LogError("Layer 'Player' not found. Please ensure you have a layer named 'Player'.");
+        }
     }
+
     void Start()
     {
-        follow = new(Target, anim, speed, MaxDistance, MinDistance);
-        Golem = new(MaxHelth);        
+        follow = gameObject.AddComponent<FollowingClass>();
+        follow.Init(target, anim, speed, maxDistance, minDistance);
+        golem.Start(); 
     }
- 
+
     void Update()
     {
-        Golem.canBeDamage = true;
-        Physics2D.IgnoreLayerCollision(gameObject.layer, Golem.enemyLayer, true);
-        if (state == golemState.Attacking_1 || state == golemState.Dash)
+        if (playerLayerIndex != -1)
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayerIndex, true);
+        }
+
+        if (state == GolemState.Attacking_1 || state == GolemState.Dash)
         {
             anim.SetBool("Run", false);
             return;
@@ -76,22 +83,23 @@ public class Golem_Script : MonoBehaviour
         EnemyAttack();
         CounterDash();
         follow.Follow(transform);
+        TestDamage();
     }
 
     float TargetDistance()
     {
-        return Vector3.Distance(transform.position, Target.position);
+        return Vector3.Distance(transform.position, target.position);
     }
 
     void Flip()
     {
-        if (Target.position.x > transform.position.x && facingLeft)
+        if (target.position.x > transform.position.x && facingLeft)
         {
             transform.localScale = new Vector3(1, 1, 0);
-            facingLeft = false; 
+            facingLeft = false;
         }
 
-        if (Target.position.x < transform.position.x && !facingLeft)
+        if (target.position.x < transform.position.x && !facingLeft)
         {
             transform.localScale = new Vector3(-1, 1, 0);
             facingLeft = true;
@@ -106,115 +114,115 @@ public class Golem_Script : MonoBehaviour
 
     void Descending()
     {
-        float newYPosition = Mathf.MoveTowards(transform.position.y, groundYPosition, decendingSpeed * Time.deltaTime);
+        float newYPosition = Mathf.MoveTowards(transform.position.y, groundYPosition, descendingSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, newYPosition, 0);
 
         if (transform.position.y - 1.35f <= groundYPosition)
         {
-            isDecending = false;
+            isDescending = false;
         }
     }
 
-    void Acending()
+    void Ascending()
     {
-        float newYPosition = Mathf.MoveTowards(transform.position.y,originalYPosition, decendingSpeed * Time.deltaTime);
+        float newYPosition = Mathf.MoveTowards(transform.position.y, originalYPosition, descendingSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
 
         if (transform.position.y == originalYPosition)
         {
-            isAcending = false;
+            isAscending = false;
         }
         count = 0;
     }
 
-    void StartDecending()
+    void StartDescending()
     {
-        isDecending = true;
+        isDescending = true;
     }
-    
 
-    void StartAcending()
+    void StartAscending()
     {
-        isAcending = true;
+        isAscending = true;
     }
 
     void Attack1()
     {
-        if (TargetDistance() < 5f && !isDecending)
+        if (TargetDistance() < 5f && !isDescending)
         {
-            StartDecending(); 
+            StartDescending();
         }
 
-        if (isDecending)
+        if (isDescending)
         {
             Descending();
         }
-        
-        if (!isDecending && transform.position.y -1.35 <= groundYPosition && TargetDistance() <= 5f && canEarthquake && !canDash)
+
+        if (!isDescending && transform.position.y - 1.35f <= groundYPosition && TargetDistance() <= 5f && canEarthquake && !canDash)
         {
-            if (count < countEarthquake) {
+            if (count < countEarthquake)
+            {
                 StartCoroutine(Earthquake());
-                //count++;
             }
-        } 
-
-        if (state == golemState.Attacking_1) {
-            return ;
         }
 
-        if (transform.position.y - 1.35 <= groundYPosition && TargetDistance() > 5f)
+        if (state == GolemState.Attacking_1)
         {
-           StartAcending();
+            return;
         }
 
-        if (isAcending)
+        if (transform.position.y - 1.35f <= groundYPosition && TargetDistance() > 5f)
         {
-            Acending();
+            StartAscending();
+        }
+
+        if (isAscending)
+        {
+            Ascending();
         }
     }
 
     void Attack3()
     {
-        if (TargetDistance() < 5 && canEarthquake)
+        if (TargetDistance() < 5f && canEarthquake)
         {
-            anim.SetTrigger("Attack3");
+            anim.SetTrigger("Attack 3");
         }
     }
 
     void CounterDash()
     {
-        if (canDash && TargetDistance() < 2f && Input.GetButtonDown("Attack")) {
+        if (canDash && TargetDistance() < 2f && Input.GetButtonDown("Attack"))
+        {
             StopCoroutine(Earthquake());
             StartCoroutine(CounterDashEvent());
         }
     }
 
-
-    /************************ Ataque 1************************/
-
     IEnumerator Earthquake()
     {
         canEarthquake = false;
-        state = golemState.Attacking_1;
+        state = GolemState.Attacking_1;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Attack");
         col2d.enabled = false;
-        yield return  new WaitForSeconds(duration_Earthquake);
+        yield return new WaitForSeconds(durationEarthquake);
         col2d.enabled = true;
-        state = golemState.None;
-        yield return new WaitForSeconds(coolDownEarthquake);
+        state = GolemState.None;
+        yield return new WaitForSeconds(cooldownEarthquake);
         canEarthquake = true;
     }
 
-    /**********************************************************/
-
     IEnumerator CounterDashEvent()
     {
-        state = golemState.Dash;
+        state = GolemState.Dash;
         canDash = false;
 
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"), true);
+        if (playerLayerIndex != -1)
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayerIndex, true);
+        }
         col2d.enabled = false;
+
         if (facingLeft)
         {
             rb.velocity = new Vector2(-dashForce, rb.velocity.y);
@@ -224,31 +232,56 @@ public class Golem_Script : MonoBehaviour
         {
             rb.velocity = new Vector2(dashForce, rb.velocity.y);
             transform.localScale = new Vector3(-1, 1, 0);
-
         }
-        
+
         anim.SetTrigger("Dash");
+        golem.canBeDamage = false;
         yield return new WaitForSeconds(dashTime);
-        Physics2D.IgnoreLayerCollision(gameObject.layer,LayerMask.NameToLayer("Player"), false);
+
+        if (playerLayerIndex != -1)
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayerIndex, false);
+        }
         col2d.enabled = true;
         rb.velocity = Vector2.zero;
-        Collider2D[] hit = Physics2D.OverlapCircleAll(attackPoint.position, fastHitRange, LayerMask.NameToLayer("Player"));
+        Collider2D[] hit = Physics2D.OverlapCircleAll(attackPoint.position, fastHitRange, playerLayer);
         foreach (Collider2D player in hit)
         {
-            player.GetComponent<PlayerClass>().TakeDamage(damage);
+            PlayerClass playerComponent = player.GetComponent<PlayerClass>();
+            if (playerComponent != null)
+            {
+                playerComponent.TakeDamage(damage, GetComponent<Player>().isDefending);
+            }
         }
-        yield return new WaitForSeconds(1);
-        state = golemState.None;
-        yield return new WaitForSeconds(dashCoolDown);
-        canDash = true ; 
-     }
+        yield return new WaitForSeconds(restTime);
+
+        state = GolemState.None;
+        golem.canBeDamage = true;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(attackPoint.position, fastHitRange);
+        if (attackPoint != null)
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, fastHitRange);
+        }
     }
 
-    /************************ Dano do player ************************/
-
-   
+    void TestDamage()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerClass playerComponent = GetComponent<PlayerClass>();
+            if (playerComponent != null)
+            {
+                playerComponent.TakeDamage(5, true);
+            }
+            else
+            {
+                Debug.LogWarning("PlayerClass component not found on this GameObject.");
+            }
+        }
+    }
 }

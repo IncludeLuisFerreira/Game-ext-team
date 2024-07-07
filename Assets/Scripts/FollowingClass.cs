@@ -10,7 +10,7 @@ public class FollowingClass : MonoBehaviour
     private float maxDistance;
     private float minDistance;
 
-    public FollowingClass(Transform player, Animator enemyAnim, float speed, float maxDistance, float minDistance)
+    public void Init(Transform player, Animator enemyAnim, float speed, float maxDistance, float minDistance)
     {
         this.player = player;
         this.enemyAnim = enemyAnim;

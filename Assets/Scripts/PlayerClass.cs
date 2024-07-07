@@ -4,33 +4,36 @@ using UnityEngine;
 
 public class PlayerClass : MonoBehaviour
 {
-   int MaxHelth;
-   int currentHealth;
-   
+   public int MaxHelth;
+   int currentHelth;
    Animator anim;
 
-   public PlayerClass(int MaxHelth)
+   public void Init(int MaxHelth)
    {
-      this.MaxHelth = MaxHelth;
-   }
-   private void Awake()
-   {
+      currentHelth = this.MaxHelth = MaxHelth;
       anim = GetComponent<Animator>();
    }
 
-   void Start()
+   public void TakeDamage(int damage, bool isDefending)
    {
-      currentHealth = MaxHelth;
-   }
-   
-   public void TakeDamage(int damage)
-   {
-      currentHealth -= damage;
-      anim.SetTrigger("Hit");
+      Debug.Log("You recived damage!");
+      if (currentHelth > 0)
+      {
+         if (!isDefending)
+         {
+            currentHelth -= damage;
+            anim.SetTrigger("Hit");
+         }
+      }
+      else
+      {
+         anim.SetTrigger("Death");
+      }
+      
    }
 
-   public void Detroy()
-   {
+   public void DestroyPlayer()
+   {  
       Destroy(gameObject);
    }
 }
