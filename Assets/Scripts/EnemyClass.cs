@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class EnemyClass : MonoBehaviour
 {
-    public int MaxHelth;
-    public int currentHelth;
+    public int maxHelth;
+    public float reculForce;
     public bool canBeDamage;
+    int currentHelth;
 
     public Animator anim;
     public Rigidbody2D rb;
-    public LayerMask enemyLayer;
 
     public EnemyClass(int MaxHelth) 
     {
-        this.MaxHelth = MaxHelth;
+        this.maxHelth = MaxHelth;
     }
 
     protected void Awake()
@@ -25,7 +25,7 @@ public class EnemyClass : MonoBehaviour
     }   
     public void Start()
     {
-        currentHelth = MaxHelth;
+        currentHelth = maxHelth;
     }
 
     protected float DeltaDistance(Transform Target)
@@ -33,18 +33,18 @@ public class EnemyClass : MonoBehaviour
         return Vector3.Distance(transform.position, Target.position);
     }
 
-    public void TakeDamage(int damage, float localScale, bool canBeDamage) 
+    public void TakeDamage(int damage) 
     {
         if (currentHelth > 0 && canBeDamage)
-        {    rb.velocity = new Vector2(localScale * 2.5f, rb.velocity.y);
+        {    rb.velocity = new Vector2(transform.localScale.x *reculForce, rb.velocity.y);
             currentHelth -= damage;
             anim.SetTrigger("Hit");
         }
-        else if (!canBeDamage)
+        else if (!canBeDamage) 
         {
             Debug.Log("The enemy escape from your attack!");
         }
-        else if (currentHelth < 0)
+        else if (currentHelth <= 0)
         {   
             Die();
         }

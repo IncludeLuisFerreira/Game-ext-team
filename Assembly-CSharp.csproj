@@ -64,23 +64,25 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.24f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Player Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\EnemyClass.cs" />
+    <Compile Include="Assets\Scripts\Golem Scripts\Golem_Script.cs" />
     <Compile Include="Assets\Scripts\PlayerClass.cs" />
-    <Compile Include="Assets\Scripts\Golem_Script.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
     <Compile Include="Assets\Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Animation\Player\Player_control.cs" />
     <Compile Include="Assets\Scripts\FollowingClass.cs" />
+    <Compile Include="Assets\Scripts\Golem Scripts\Gizmos_Golem.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemyTest.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemySelector.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\Bringer Of Death\License.txt" />
     <None Include="Assets\Art\Warrior free set\License.txt" />
+    <None Include="Assets\Art\Kingdom\fire_fx_v1.0\fire_fx_v1.0\readme.TXT" />
     <None Include="Assets\Art\Enemy Galore 1 - Pixel Art\Sprites\Hero and Opponents\license.txt" />
     <None Include="Assets\Art\Enemy Galore 1 - Pixel Art\Read Me.txt" />
     <None Include="Assets\Art\Warrior free set\Contact.txt" />
