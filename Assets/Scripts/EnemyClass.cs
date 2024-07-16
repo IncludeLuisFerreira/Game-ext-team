@@ -18,7 +18,7 @@ public class EnemyClass : MonoBehaviour
         this.maxHelth = MaxHelth;
     }
 
-    protected void Awake()
+    void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -28,7 +28,7 @@ public class EnemyClass : MonoBehaviour
         currentHelth = maxHelth;
     }
 
-    protected float DeltaDistance(Transform Target)
+    public float DeltaDistance(Transform Target)
     {
         return Vector3.Distance(transform.position, Target.position);
     }
@@ -44,7 +44,8 @@ public class EnemyClass : MonoBehaviour
         {
             Debug.Log("The enemy escape from your attack!");
         }
-        else if (currentHelth <= 0)
+        
+        if (currentHelth <= 0)
         {   
             Die();
         }

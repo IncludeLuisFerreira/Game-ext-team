@@ -1,14 +1,7 @@
-using System;
-using System.Buffers.Text;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
-using UnityEditor.SceneManagement;
 using UnityEngine; 
 
-// Coloque "Shadow o ouriço é um fpd" como ester egg
-public class SkeletonClass : EnemyClass
+public class SkeletonClass : MonoBehaviour
 {
     public enum SkeletonStates {Idle, Follow, Attack1, Attack2, Death, Defensive, None}
     public SkeletonStates skStates;
@@ -23,26 +16,24 @@ public class SkeletonClass : EnemyClass
     [SerializeField]float durationShild;
     [SerializeField]float defenseReculForce;
     [SerializeField]float delay;
-    [SerializeField]Transform Target;
 
-    protected private FollowingClass skeleton;
-    [SerializeField] bool canShilded = true;
+
+    [SerializeField]Transform Target;
+    Animator anim;
+    FollowingClass skeleton;
+    EnemyClass skEnemy;
+
     [SerializeField]bool canFollow;
     [SerializeField]bool facingLeft = true;
     [SerializeField]bool canFlip;
 
-    public SkeletonClass(int MaxHelth) : base(MaxHelth)
-    {
 
-    }
-
-    new void Start()
+    void Start()
     {
-        base.Awake();
-        base.Start();
+        anim = GetComponent<Animator>();
+        skEnemy = GetComponent<EnemyClass>();
         skeleton = gameObject.AddComponent<FollowingClass>();
         skeleton.Init(Target, anim, speed, maxDistance, minDistance);
-        canFollow = true;
     }
 
     void Update()
@@ -50,17 +41,18 @@ public class SkeletonClass : EnemyClass
         BattleLogic();
     }
 
-    // Função principal 
     void BattleLogic()
     {
         FixedBoolean();
         FollowTarget();
         Shilded();
+        Flip();
+        Melee();
     }
 
     private void Shilded()
     {
-        skStates = SkeletonStates.Defensive;
+        //skStates = SkeletonStates.None;
 
     }
 
@@ -68,7 +60,7 @@ public class SkeletonClass : EnemyClass
     {
         if (canFollow)
         {
-            skStates = SkeletonStates.Follow;
+            if (anim.GetBool("Run") == true) {skStates = SkeletonStates.Follow;}
             skeleton.Follow(transform);
         }
     }
@@ -84,7 +76,7 @@ public class SkeletonClass : EnemyClass
 
                 break;
             case SkeletonStates.Attack1:
-
+                canFollow = false;
                 break;
             case SkeletonStates.Attack2:
 
@@ -103,11 +95,29 @@ public class SkeletonClass : EnemyClass
         if (transform.position.x > Target.position.x && facingLeft)
         {
             transform.localScale = new Vector3(-1, 1, 0);
+            facingLeft = false;
         }
-        else if (transform.position.x < Target.position.x && !facingLeft)
+        if (transform.position.x < Target.position.x && !facingLeft)
         {
             transform.localScale = new Vector3(1, 1, 0);
+            facingLeft = true;
         }
+    }
+
+    void Melee()
+    {
+        if (skEnemy.DeltaDistance(Target) < 2)
+        {
+            StartCoroutine(MeleeSequence());
+        }
+    }
+
+    IEnumerator MeleeSequence()
+    {
+        anim.SetTrigger("Attack 1");
+        skStates = SkeletonStates.Attack1;
+        yield return new WaitForSeconds(1.2f);
+        skStates = SkeletonStates.None;
     }
 
 }

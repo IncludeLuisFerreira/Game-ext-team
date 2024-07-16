@@ -154,12 +154,12 @@ TextureImporter:
       name: Golem_AttackA_FX_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
+        x: 16
+        y: 80
+        width: 33
+        height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -175,12 +175,12 @@ TextureImporter:
       name: Golem_AttackA_FX_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
+        x: 98
+        y: 80
+        width: 14
+        height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -196,12 +196,12 @@ TextureImporter:
       name: Golem_AttackA_FX_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
+        x: 144
+        y: 80
+        width: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -217,12 +217,12 @@ TextureImporter:
       name: Golem_AttackA_FX_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
+        x: 17
+        y: 16
+        width: 29
+        height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -238,10 +238,10 @@ TextureImporter:
       name: Golem_AttackA_FX_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
+        x: 81
+        y: 16
+        width: 28
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,6 +251,27 @@ TextureImporter:
       bones: []
       spriteID: 25b1d3dee48c76500800000000000000
       internalID: 389500134104046418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Golem_AttackA_FX_9
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 78
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0524eedede52c5f4c95ad8c01f48eb76
+      internalID: -737056912
       vertices: []
       indices: 
       edges: []
@@ -268,9 +289,15 @@ TextureImporter:
     nameFileIdTable:
       Golem_AttackA_FX_0: 8036876663067323500
       Golem_AttackA_FX_1: -8945436382363876492
+      Golem_AttackA_FX_10: -778338003
       Golem_AttackA_FX_2: 2954060893321911702
       Golem_AttackA_FX_3: -4315502537467429462
       Golem_AttackA_FX_4: 389500134104046418
+      Golem_AttackA_FX_5: -1311465424
+      Golem_AttackA_FX_6: -1139892689
+      Golem_AttackA_FX_7: 681819751
+      Golem_AttackA_FX_8: 2020747046
+      Golem_AttackA_FX_9: -737056912
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

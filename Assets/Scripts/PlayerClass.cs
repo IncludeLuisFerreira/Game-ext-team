@@ -24,6 +24,10 @@ public class PlayerClass : MonoBehaviour
             currentHelth -= damage;
             anim.SetTrigger("Hit");
          }
+         else
+         {
+            anim.SetTrigger("Perry");
+         }
       }
       else
       {

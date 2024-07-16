@@ -22,22 +22,24 @@ public class Golem_Script : MonoBehaviour
     [SerializeField] int countEarthquake = 2;
     [SerializeField] float fastHitRange;
     [SerializeField] float restTime = 1f;
-    [SerializeField] int iceCount = 3;
     int count = 0;
 
     [Header("Variáveis booleanas")]
     [SerializeField] bool facingLeft = true;
     [SerializeField] bool isDescending = false;
     [SerializeField] bool isAscending = false;
-    [SerializeField] bool delayedIce = true;
-    public bool isDashing;
     public bool canDash = true;
     public bool canEarthquake = true;
+    public bool canExplode = true;
+    public bool grounded;
 
     [Header("Transforms")]
     [SerializeField] Transform target;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] Transform attackPoint;
+    [SerializeField] Transform ice;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask whatIsGround;
 
     private FollowingClass follow;
     private EnemyClass golem;
@@ -77,7 +79,8 @@ public class Golem_Script : MonoBehaviour
 
     void Update()
     {
-        origin = transform.localPosition;
+        grounded = Grounded();
+        anim.SetBool("Grounded", grounded == true);
         if (playerLayerIndex != -1)
         {
             Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayerIndex, true);
@@ -89,12 +92,16 @@ public class Golem_Script : MonoBehaviour
             return;
         }
         golem.canBeDamage = true;
-        Flip();
+        /* Flip();
         EnemyAttack();
         CounterDash();
-        follow.Follow(transform);
-        IceAttackTeste();
+        follow.Follow(transform); */ 
+
+        // Teste de lógica
+        if (Input.GetKeyDown(KeyCode.P))
+            anim.SetTrigger("Attack");
     }
+
 
     float TargetDistance()
     {
@@ -246,7 +253,7 @@ public class Golem_Script : MonoBehaviour
         rb.velocity = Vector2.zero;
     }
 
-    void Dashing()
+    private void Dashing()
     {
         state = GolemState.Dash;
         canDash = false;
@@ -286,21 +293,39 @@ public class Golem_Script : MonoBehaviour
         }
     }
 
-    void IceAttackTeste()
+    public void IceAttack()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            pointers.iceRb.velocity = new Vector2(transform.localScale.x * 2f, rb.velocity.y);
-            StartCoroutine(IceDelay());
-        } 
-    }
-    IEnumerator IceDelay()
-    {
-        yield return new WaitForSeconds(1.25f);
-        pointers.iceRb.velocity = Vector2.zero;
-        pointers.attackPoint.localPosition = Vector3.zero;
     }
 
+    // Referênciada na animação de ataque do golem
+    public void ExplosionCollider()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(pointers.explosionPoint.position, pointers.explosionRange, playerLayer);
+        foreach (Collider2D player in hits)
+        {
+            if (player.TryGetComponent<PlayerClass>(out var playerComponent))
+            {
+                playerComponent.TakeDamage(damage, player.GetComponent<Player>().isDefending);
+            }
+        }
+    }
+
+    public bool Grounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, whatIsGround);
+    }
+
+    public void AttachedToGround()
+    {
+        if (!Grounded())
+        {
+            rb.velocity = new Vector2(0, -15);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
 
 
 }

@@ -151,7 +151,7 @@ BoxCollider2D:
   m_Offset: {x: -0.059859514, y: -0.048069715}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.38654566, y: 0.5831075}
     oldSize: {x: 2.25, y: 2.55}
     newSize: {x: 1.40625, y: 1.59375}
     adaptiveTilingThreshold: 0.5
@@ -194,17 +194,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9841e30e489752a41b62607157172bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHelth: 120
-  currentHelth: 0
+  maxHelth: 0
+  reculForce: 2.5
   canBeDamage: 1
   anim: {fileID: 0}
   rb: {fileID: 0}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  skStates: 0
+  skStates: 6
   speed: 1.5
-  damage: 0
+  damage: 10
   maxDistance: 20
   minDistance: 15
   downTimeAttack1: 4.55
@@ -213,9 +210,8 @@ MonoBehaviour:
   defenseReculForce: 2.5
   delay: 1.2
   Target: {fileID: 0}
-  canShilded: 0
   canFollow: 0
-  facingLeft: 0
+  facingLeft: 1
   canFlip: 1
 --- !u!114 &7990874565803548059
 MonoBehaviour:
@@ -229,11 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f38cbb9b673b84c868f03c8a65eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHelth: 20
-  currentHelth: 0
+  maxHelth: 20
+  reculForce: 4
   canBeDamage: 1
   anim: {fileID: 0}
   rb: {fileID: 0}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
