@@ -36,7 +36,7 @@ public class EnemyClass : MonoBehaviour
     public void TakeDamage(int damage) 
     {
         if (currentHelth > 0 && canBeDamage)
-        {    rb.velocity = new Vector2(transform.localScale.x *reculForce, rb.velocity.y);
+        {   rb.velocity = new Vector2(-transform.localScale.x *reculForce, rb.velocity.y);
             currentHelth -= damage;
             anim.SetTrigger("Hit");
         }
