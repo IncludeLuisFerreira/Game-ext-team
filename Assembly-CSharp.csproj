@@ -66,21 +66,21 @@
   <ItemGroup>
     <Compile Include="Assets\InitScene.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\EnemyClass.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\PlayerClass.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Golem_Script.cs" />
-    <Compile Include="Assets\Scripts\PlayerClass.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
-    <Compile Include="Assets\Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Animation\Player\Player_control.cs" />
-    <Compile Include="Assets\Scripts\FollowingClass.cs" />
-    <Compile Include="Assets\GoblinScript.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Gizmos_Golem.cs" />
     <Compile Include="Assets\Projectile.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\Classes Gerais\EnemyClass.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemyTest.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\Skeleton Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemySelector.cs" />
+    <Compile Include="Assets\Scripts\GoblinScript.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\Classes Gerais\FollowingClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\Bringer Of Death\License.txt" />

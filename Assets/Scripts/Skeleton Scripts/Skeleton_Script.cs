@@ -55,28 +55,18 @@ public class SkeletonClass : MonoBehaviour
 
     void Update()
     {
-        /* BattleLogic(); */
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            
-        }
+        BattleLogic(); 
     }
 
     void BattleLogic()
     {
         FixedBoolean();
         FollowTarget();
-        Shilded();
         Flip();
-        Melee();
+        RandomAbility();
         StartCoroutine(CoolDown());
     }
 
-    private void Shilded()
-    {
-        //skStates = SkeletonStates.None;
-
-    }
 
     private void FollowTarget()
     {
@@ -108,6 +98,7 @@ public class SkeletonClass : MonoBehaviour
                 break;
             case SkeletonStates.Defensive:
                 canFollow = false;
+                canFlip = false;
                 break;
             default:
                 canFollow = true;
@@ -136,7 +127,12 @@ public class SkeletonClass : MonoBehaviour
 
     void RandomAbility()
     {
+        float randomNum = Random.Range(0, 1);
 
+        if (randomNum < 0.7f)
+            Melee();
+        else
+            Defensive();
     }
 
     void Melee()
@@ -201,16 +197,18 @@ public class SkeletonClass : MonoBehaviour
     {
         if (skEnemy.DeltaDistance(Target) < meleeDistance && canDefende == true)
         {
-
+            StartCoroutine(DefenseSequence());
         }
     }
 
     IEnumerator DefenseSequence()
     {
-        anim.SetTrigger("Defense");
+        anim.SetBool("Defense", true);
         anim.SetBool("Run", false);
         skStates = SkeletonStates.Defensive;
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(1.5f);
+        anim.SetBool("Defense", false);
+        skStates = SkeletonStates.None;
     }
 }
