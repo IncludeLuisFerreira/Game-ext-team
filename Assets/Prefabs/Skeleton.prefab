@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1049016756948261631
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 730151335635090058}
-  m_Layer: 6
-  m_Name: sword
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &730151335635090058
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049016756948261631}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8711470840775846425}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4529875825132299538
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,8 +34,7 @@ Transform:
   m_LocalPosition: {x: 5.37, y: 1.82, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 730151335635090058}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6001043345694660911
@@ -180,7 +148,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.057955384, y: -0.19642913}
+  m_Offset: {x: -0.059859514, y: -0.048069715}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.38654566, y: 0.5831075}
@@ -191,7 +159,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4405081, y: 2.6274498}
+  m_Size: {x: 1.2048783, y: 2.4878173}
   m_EdgeRadius: 0
 --- !u!95 &4684630725864614664
 Animator:
@@ -226,6 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9841e30e489752a41b62607157172bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHelth: 0
+  reculForce: 2.5
+  canBeDamage: 1
+  anim: {fileID: 0}
+  rb: {fileID: 0}
   skStates: 6
   speed: 1.5
   damage: 10
@@ -236,13 +209,10 @@ MonoBehaviour:
   durationShild: 1.78
   defenseReculForce: 2.5
   delay: 1.2
-  meleeDistance: 4
-  TimeDownAttack1: 2.5
   Target: {fileID: 0}
   canFollow: 0
   facingLeft: 1
   canFlip: 1
-  canMelee: 0
 --- !u!114 &7990874565803548059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHelth: 20
-  reculForce: 5
+  reculForce: 4
   canBeDamage: 1
   anim: {fileID: 0}
   rb: {fileID: 0}
