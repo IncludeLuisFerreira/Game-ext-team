@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Animation\Player\Player_control.cs" />
     <Compile Include="Assets\Scripts\FollowingClass.cs" />
+    <Compile Include="Assets\GoblinScript.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Gizmos_Golem.cs" />
     <Compile Include="Assets\Projectile.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
