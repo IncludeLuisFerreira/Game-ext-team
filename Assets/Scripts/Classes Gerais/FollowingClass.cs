@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FollowingClass : MonoBehaviour
 {
-    private Transform player;
-    private Animator enemyAnim;
-    private float speed;
-    private float maxDistance;
-    private float minDistance;
+    [SerializeField]private Transform player;
+    [SerializeField]private Animator enemyAnim;
+    [SerializeField]private float speed;
+    [SerializeField]private float maxDistance;
+    [SerializeField]private float minDistance;
 
     public void Init(Transform player, Animator enemyAnim, float speed, float maxDistance, float minDistance)
     {
@@ -23,13 +23,17 @@ public class FollowingClass : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(enemy.position, player.position);
 
-        if (distanceToPlayer < minDistance && distanceToPlayer < maxDistance)
+        if (distanceToPlayer < maxDistance)
         {
             Vector3 direction = (player.position - enemy.position).normalized;
             enemy.position += speed * Time.deltaTime * direction;
-            enemyAnim.SetBool("Run", true);
+            enemyAnim.SetBool("Run", distanceToPlayer != 0.5f);
+            enemyAnim.SetBool("Idle", false);
         }
-        else
+        else 
+        {
             enemyAnim.SetBool("Run", false);
+            enemyAnim.SetBool("Idle", true);
+        }
     }
 }

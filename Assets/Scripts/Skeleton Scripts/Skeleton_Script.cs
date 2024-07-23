@@ -55,9 +55,14 @@ public class SkeletonClass : MonoBehaviour
 
     void Update()
     {
+        if (TryGetComponent<EnemyClass>(out var Control))
+        {
+            if (Control.dead) {return ;}
+        }
         BattleLogic(); 
     }
 
+// Necessário melhor estruturação futura
     void BattleLogic()
     {
         FixedBoolean();

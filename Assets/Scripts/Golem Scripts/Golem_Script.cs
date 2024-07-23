@@ -80,7 +80,7 @@ public class Golem_Script : MonoBehaviour
     void Update()
     {
         grounded = Grounded();
-        anim.SetBool("Grounded", grounded == true);
+        anim.SetBool("Grounded", grounded);
         if (playerLayerIndex != -1)
         {
             Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayerIndex, true);

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6569882979556389577}
   - component: {fileID: 8557214905579707351}
   - component: {fileID: 7286555729530285060}
-  - component: {fileID: 8803610280923137881}
   m_Layer: 6
   m_Name: IceAttack_area
   m_TagString: Untagged
@@ -159,18 +158,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
---- !u!114 &8803610280923137881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 502124477502955412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9205246aa318a2c48a58083d92aac1a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &850047991031575682
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +184,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8230897020334896961}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3508684982307126080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5562903598742542851}
+  m_Layer: 6
+  m_Name: groundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5562903598742542851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3508684982307126080}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: -1.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -357,6 +375,7 @@ Transform:
   - {fileID: 5110456817309448531}
   - {fileID: 2819348367140745647}
   - {fileID: 8881690133623391173}
+  - {fileID: 5562903598742542851}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6200353042135564149
@@ -532,19 +551,23 @@ MonoBehaviour:
   countEarthquake: 20
   fastHitRange: 0.6
   restTime: 1
-  iceCount: 3
   facingLeft: 0
   isDescending: 0
   isAscending: 0
-  delayedIce: 1
   canDash: 1
   canEarthquake: 1
-  iceAttack: 0
+  canExplode: 1
+  grounded: 0
   target: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
   attackPoint: {fileID: 5110456817309448531}
+  ice: {fileID: 2819348367140745647}
+  groundCheck: {fileID: 5562903598742542851}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &2189237378950803030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +583,7 @@ MonoBehaviour:
   maxHelth: 10
   reculForce: 0.35
   canBeDamage: 1
+  dead: 0
   anim: {fileID: 878593641582608763}
   rb: {fileID: 1021617907837629876}
 --- !u!114 &9077824035606237166
@@ -581,3 +605,6 @@ MonoBehaviour:
   fastHitRange: 0.41
   explosionRange: 0.77
   iceRange: 0.29
+  Ice: {fileID: 958836296861260736, guid: cc40bf549cf2b7b48a17d60f64ce101e, type: 3}
+  IceSpeed: 0
+  IceTime: 0

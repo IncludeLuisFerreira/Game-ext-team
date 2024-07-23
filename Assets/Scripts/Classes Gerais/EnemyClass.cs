@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class EnemyClass : MonoBehaviour
@@ -8,6 +5,7 @@ public class EnemyClass : MonoBehaviour
     public int maxHelth;
     public float reculForce;
     public bool canBeDamage;
+    public bool dead = false;
     int currentHelth;
 
     public Animator anim;
@@ -45,9 +43,10 @@ public class EnemyClass : MonoBehaviour
             Debug.Log("The enemy escape from your attack!");
         }
         
-        if (currentHelth <= 0)
+        if (currentHelth <= 0 && dead == false)
         {   
             Die();
+            dead = true;
         }
     }
 
@@ -58,6 +57,7 @@ public class EnemyClass : MonoBehaviour
 
     void Destroy()
     {
-        Destroy(gameObject);
+        rb.velocity = Vector2.zero;
+        Destroy(gameObject, 1.5f);
     }
 }
