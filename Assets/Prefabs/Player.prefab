@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 5078653967676794222}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: MyOwnName
+  heath: 20
   rollTime: 0.75
   rollForce: 10
   rollCoolDown: 1.25
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfb75ddee4954543a45c2d2452e7383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHelth: 0
 --- !u!1 &7241265259093333093
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,16 +64,8 @@ public class Player : MonoBehaviour
         Jump();
         Attack();
         Roll();
-        teste();
     }
 
-    void teste()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            playClass.TakeDamage(5, isDefending);
-        }
-    }
 
     /****************************** Movimentos do Player ******************************/
     void Move()
@@ -202,5 +194,4 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerStates = States.Idle;
     }
-
 }

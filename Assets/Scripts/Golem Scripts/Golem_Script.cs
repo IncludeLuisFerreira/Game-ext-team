@@ -74,7 +74,6 @@ public class Golem_Script : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         follow = gameObject.AddComponent<FollowingClass>();
         follow.Init(target, anim, speed, maxDistance, minDistance);
-        golem.Start(); 
     }
 
     void Update()
