@@ -134,7 +134,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 3.7848628
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -265,5 +265,4 @@ MonoBehaviour:
   reculForce: 5
   canBeDamage: 1
   dead: 0
-  anim: {fileID: 0}
-  rb: {fileID: 0}
+  currentHelth: 0

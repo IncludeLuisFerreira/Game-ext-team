@@ -1,16 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 // Personagem de patrulha 
-public class Mushuroom : MonoBehaviour
+public class Patrol : MonoBehaviour
 {
 
     public float speed;
-    public float minDistance;
     public int walkPointRange;
     public float sightRange;
     public float coolDownAttack;
@@ -27,21 +23,26 @@ public class Mushuroom : MonoBehaviour
 
     private bool walkPointSet;
     private FollowingClass PatrolingMushuroom;
+    private EnemyClass patrolEnemy;
     private bool alreadyAttacked;
 
     private void Awake()
     {
-       anim = GetComponent<Animator>();
-       player = GameObject.Find("Player").transform;
-       PatrolingMushuroom = GetComponent<FollowingClass>();
+        anim = GetComponent<Animator>();
+        player = GameObject.Find("Player").transform;
+        PatrolingMushuroom = GetComponent<FollowingClass>();
+        patrolEnemy = GetComponent<EnemyClass>();
     }
 
     private void Start()
     {
-        PatrolingMushuroom.Init(player, anim, speed,walkPointRange, minDistance);
+        PatrolingMushuroom.Init(player, anim, speed,walkPointRange);
     }
     void Update()
     {
+        if (patrolEnemy.dead) {return ;}
+
+
         bool playerInSightRange = Physics2D.OverlapCircle(transform.position, sightRange, playerLayer);
         bool playerInAttackRange = Physics2D.OverlapCircle(attackPoint.position, attackPointRange, playerLayer);
 
@@ -81,6 +82,7 @@ public class Mushuroom : MonoBehaviour
                 direction = (positiveTransform.position- transform.position).normalized;
                 if (Convert.ToInt16(transform.position.x) == Convert.ToInt16(positiveTransform.position.x)) 
                 {
+                    facingLeft = false;
                     positivePoint = false; 
                     negativePoint = true;
                 }
@@ -91,6 +93,7 @@ public class Mushuroom : MonoBehaviour
                 direction =  (negativeTransform.position - transform.position).normalized;
                 if (Convert.ToInt16(transform.position.x) == Convert.ToInt16(negativeTransform.position.x)) 
                 {
+                    facingLeft = true;
                     positivePoint = true; 
                     negativePoint = false;
                 }
@@ -106,6 +109,7 @@ public class Mushuroom : MonoBehaviour
         float randowX = UnityEngine.Random.Range(0f, walkPointRange);
         positiveTransform.position = new Vector3(positiveTransform.position.x + randowX, positiveTransform.position.y, 0);
         negativeTransform.position = new Vector3(negativeTransform.position.x - randowX, negativeTransform.position.y, 0);
+        
         
         walkPointSet = true;
     }

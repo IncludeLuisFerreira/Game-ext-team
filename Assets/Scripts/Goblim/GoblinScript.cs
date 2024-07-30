@@ -13,7 +13,6 @@ public class GoblinScript : MonoBehaviour
     public GoblimStates state;
     [SerializeField]float speed;
     [SerializeField]float maxDistance;
-    [SerializeField]float minDistance;
     [SerializeField]int damage;
     [SerializeField]bool facingLeft = true;
     [SerializeField]bool canAttack1;
@@ -41,7 +40,7 @@ public class GoblinScript : MonoBehaviour
         GoblinEnemy = GetComponent<EnemyClass>();
         Goblim = gameObject.AddComponent<FollowingClass>();
 
-        Goblim.Init(Target, anim, speed, maxDistance, minDistance);
+        Goblim.Init(Target, anim, speed, maxDistance);
     }
 
     void Update()

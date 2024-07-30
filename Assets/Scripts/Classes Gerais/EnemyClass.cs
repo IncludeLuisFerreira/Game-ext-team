@@ -8,15 +8,11 @@ public class EnemyClass : MonoBehaviour
     public float reculForce;
     public bool canBeDamage;
     public bool dead = false;
-    int currentHelth;
+    public int currentHelth;
 
-    public Animator anim;
-    public Rigidbody2D rb;
+    private Animator anim;
+    private Rigidbody2D rb;
 
-    public EnemyClass(int MaxHelth) 
-    {
-        this.maxHelth = MaxHelth;
-    }
 
     void Awake()
     {
@@ -42,16 +38,12 @@ public class EnemyClass : MonoBehaviour
             canBeDamage = false;
             StartCoroutine(ResetCanBeDamaged());
         }
-        else if (!canBeDamage) 
-        {
-            Debug.Log("Enemy can not be damaged!");
-        }
-        
+                
         if (currentHelth <= 0 && dead == false)
         {   
             Die();
             dead = true;
-            StartCoroutine(BugPrevent());
+            //StartCoroutine(BugPrevent());
         }
     }
 

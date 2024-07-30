@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Player Scripts\PlayerClass.cs" />
     <Compile Include="Assets\Scripts\Goblim\GoblinScript.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Golem_Script.cs" />
+    <Compile Include="Assets\Scripts\PatrolingEnemy.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
     <Compile Include="Assets\Animation\Player\Player_control.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Gizmos_Golem.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="Assets\Scripts\Skeleton Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemySelector.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
-    <Compile Include="Assets\Scripts\mushuroom.cs" />
     <Compile Include="Assets\Scripts\Classes Gerais\FollowingClass.cs" />
     <Compile Include="Assets\Scripts\Goblim\Gizmos.cs" />
   </ItemGroup>

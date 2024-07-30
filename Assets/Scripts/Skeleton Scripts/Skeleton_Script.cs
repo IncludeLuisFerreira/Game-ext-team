@@ -16,12 +16,6 @@ public class SkeletonClass : MonoBehaviour
     [SerializeField]protected float speed;
     [SerializeField]int damage;
     [SerializeField]protected float maxDistance;
-    [SerializeField]protected float minDistance;
-    [SerializeField]float downTimeAttack1;
-    [SerializeField]float coolDownShild;
-    [SerializeField]float durationShild;
-    [SerializeField]float defenseReculForce;
-    [SerializeField]float delay;
     float Seconds;
 
     [Header("Meleee")]
@@ -50,7 +44,7 @@ public class SkeletonClass : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         skEnemy = GetComponent<EnemyClass>();
         skeleton = gameObject.AddComponent<FollowingClass>();
-        skeleton.Init(Target, anim, speed, maxDistance, minDistance);
+        skeleton.Init(Target, anim, speed, maxDistance);
     }
 
     void Update()
