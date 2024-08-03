@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerClass : MonoBehaviour
 {
    public int MaxHelth;
-   int currentHelth;
+   public int currentHelth;
    Animator anim;
 
    public void Init(int MaxHelth)
