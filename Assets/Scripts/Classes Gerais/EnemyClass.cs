@@ -12,12 +12,13 @@ public class EnemyClass : MonoBehaviour
 
     private Animator anim;
     private Rigidbody2D rb;
-
+    private Transform target;
 
     void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        target = GameObject.Find("Player").transform;
     }   
     private void Start()
     {
@@ -32,7 +33,7 @@ public class EnemyClass : MonoBehaviour
     public void TakeDamage(int damage) 
     {
         if (currentHelth > 0 && canBeDamage)
-        {   rb.velocity = new Vector2(-transform.localScale.x *reculForce, rb.velocity.y);
+        {   rb.velocity = new Vector2(target.localScale.x *reculForce, rb.velocity.y);
             currentHelth -= damage;
             anim.SetTrigger("Hit");
             canBeDamage = false;
@@ -42,8 +43,15 @@ public class EnemyClass : MonoBehaviour
         if (currentHelth <= 0 && dead == false)
         {   
             Die();
+            ReduceSpawCounter();
             dead = true;
             //StartCoroutine(BugPrevent());
+        }
+    }
+
+    public void ReduceSpawCounter() {
+        if (SpawEnemys.Instance != null && SpawEnemys.Instance.enemysAlive != 0) {
+            SpawEnemys.Instance.enemysAlive--;
         }
     }
 
@@ -56,12 +64,12 @@ public class EnemyClass : MonoBehaviour
     void Die()
     {
         anim.SetTrigger("Death");
+        rb.simulated = false;
     }
 
     void Destroy()
     {
         StopAllCoroutines();
-        rb.velocity = Vector2.zero;
         Destroy(gameObject, 1.5f);
     }
 

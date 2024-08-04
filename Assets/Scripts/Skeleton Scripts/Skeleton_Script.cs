@@ -4,6 +4,7 @@ using UnityEngine;
 // Listas de afazeres: 
 /*
     - Fazer a defesa;
+    - Talvez dificultar fazendo com que as vezes o clip hit não seja tocado, assim continuando o ataque;
     - Fazer som dos movimentos dos personagens;
 
 */
@@ -24,12 +25,12 @@ public class SkeletonClass : MonoBehaviour
     [SerializeField]float SwordRange;
 
 
-    [SerializeField]Transform Target;
     [SerializeField]Transform Sword;
-    Animator anim;
-    FollowingClass skeleton;
-    EnemyClass skEnemy;
-    Rigidbody2D rb;
+    private Transform Target;
+    private Animator anim;
+    private FollowingClass skeleton;
+    private EnemyClass skEnemy;
+    private Rigidbody2D rb;
     [SerializeField]LayerMask playerLayer;
 
     [SerializeField]bool canFollow;
@@ -40,6 +41,7 @@ public class SkeletonClass : MonoBehaviour
 
     void Start()
     {
+        Target = GameObject.Find("Player").transform;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         skEnemy = GetComponent<EnemyClass>();
@@ -111,15 +113,15 @@ public class SkeletonClass : MonoBehaviour
     {
         if (canFlip)
         {
-            if (transform.position.x > Target.position.x && facingLeft)
+            if (transform.position.x > Target.position.x && !facingLeft)
             {
                 transform.localScale = new Vector3(-1, 1, 0);
-                facingLeft = false;
+                facingLeft = true;
             }
-            if (transform.position.x < Target.position.x && !facingLeft)
+            if (transform.position.x < Target.position.x && facingLeft)
             {
                 transform.localScale = new Vector3(1, 1, 0);
-                facingLeft = true;
+                facingLeft = false;
             }
         }
     }

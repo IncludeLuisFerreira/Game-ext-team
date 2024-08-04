@@ -109,7 +109,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 4035959289877228764, guid: c5b15ca3a0987ac46b73e4a04e12eeb2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -160,10 +160,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -230,21 +230,14 @@ MonoBehaviour:
   speed: 1.5
   damage: 10
   maxDistance: 20
-  minDistance: 15
-  downTimeAttack1: 4.55
-  coolDownShild: 2
-  durationShild: 1.78
-  defenseReculForce: 2.5
-  delay: 1.2
   meleeDistance: 2.18
   TimeDownAttack1: 2.26
   SwordRange: 1.3
-  Target: {fileID: 0}
   Sword: {fileID: 730151335635090058}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  canFollow: 0
+  canFollow: 1
   facingLeft: 1
   canFlip: 1
   canMelee: 0

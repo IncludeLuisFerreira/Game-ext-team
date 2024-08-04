@@ -230,7 +230,7 @@ MonoBehaviour:
   Name: MyOwnName
   heath: 20
   rollTime: 0.75
-  rollForce: 10
+  rollForce: 15
   rollCoolDown: 1.25
   speed: 8
   jumpForce: 7
@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHelth: 0
+  currentHelth: 0
 --- !u!1 &7241265259093333093
 GameObject:
   m_ObjectHideFlags: 0
