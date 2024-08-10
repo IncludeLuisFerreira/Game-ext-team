@@ -13,6 +13,7 @@ public class EnemyClass : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private Transform target;
+    public SpawEnemys spawner;
 
     void Awake()
     {
@@ -50,8 +51,8 @@ public class EnemyClass : MonoBehaviour
     }
 
     public void ReduceSpawCounter() {
-        if (SpawEnemys.Instance != null && SpawEnemys.Instance.enemysAlive != 0) {
-            SpawEnemys.Instance.enemysAlive--;
+        if (spawner != null && spawner.enemiesInRoom != 0) {
+            spawner.enemiesInRoom--;
         }
     }
 

@@ -65,28 +65,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Player Scripts\Player.cs" />
-    <Compile Include="Assets\InitTutorial.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraTransition.cs" />
     <Compile Include="Assets\Scripts\Scene Manager\InitScene.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerClass.cs" />
+    <Compile Include="Assets\Scripts\Management\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\Goblim\GoblinScript.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Golem_Script.cs" />
+    <Compile Include="Assets\Scripts\Management\TextManager.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
     <Compile Include="Assets\Scripts\Classes Gerais\PatrolingEnemy.cs" />
+    <Compile Include="Assets\Scripts\InviWallActiveted.cs" />
     <Compile Include="Assets\Animation\Player\Player_control.cs" />
     <Compile Include="Assets\Scripts\Gates Scripts\Spaw Enemys.cs" />
     <Compile Include="Assets\Scripts\Fruit Scripts\HealthScript.cs" />
     <Compile Include="Assets\Scripts\Gates Scripts\PlayerDetection.cs" />
     <Compile Include="Assets\Scripts\Golem Scripts\Gizmos_Golem.cs" />
-    <Compile Include="Assets\InvisibleWall.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Classes Gerais\EnemyClass.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemyTest.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
     <Compile Include="Assets\Scripts\Skeleton Scripts\Skeleton_Script.cs" />
     <Compile Include="Assets\Art\Enemy Galore 1 - Pixel Art\Script\EnemySelector.cs" />
     <Compile Include="Assets\Art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
+    <Compile Include="Assets\Scripts\Management\TriggerScript.cs" />
     <Compile Include="Assets\Scripts\Scene Manager\InfitityCenario.cs" />
     <Compile Include="Assets\Scripts\Classes Gerais\FollowingClass.cs" />
     <Compile Include="Assets\Scripts\Goblim\Gizmos.cs" />

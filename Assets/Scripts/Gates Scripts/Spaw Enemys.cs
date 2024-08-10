@@ -1,43 +1,47 @@
-using System.Security.Cryptography;
+using System.Collections;
 using UnityEngine;
+using System;
 
 public class SpawEnemys : MonoBehaviour
 {
-    public static SpawEnemys Instance {get; set;}
-    public GameObject enemy;
-    public float spawRate;
-    public int maxCountEnemy = 3;
-    
-    private int currentCountEnemy = 0;
-    private float nextSpawn = 0f;
-    public bool canSpaw  = false;
-    public int enemysAlive;
-    public bool canOpenGates = false;
-    
-    private void Awake() {
-        if (Instance == null) {
-            Instance = this;
-            
-        }
-        else {
-            Destroy(gameObject);
-        }
-    }
+    public GameObject[] enemies;
+    public bool trigger;
+    public bool canOpenGates {get; private set;}
+    public float spawTime;
+    public int enemiesInRoom = 0;
+    public int enemiesCount;
+
+    private int count = 0;
+    private bool isSpawning = false;
 
     private void Update() {
-        
-        if (Time.time > nextSpawn && currentCountEnemy < maxCountEnemy && canSpaw) {
-            nextSpawn = Time.time + spawRate;
-            Instantiate(enemy, transform.position, Quaternion.identity);
-            currentCountEnemy++;
-            enemysAlive++;
+        if (trigger && count < enemiesCount && !isSpawning) {
+            StartCoroutine(SpawEnemyEvent());
         }
-        OpenGates();
+
+        if (count == enemiesCount && enemiesInRoom == 0) {
+            canOpenGates = true;
+        } 
     }
 
-    void OpenGates() {
-        if (enemysAlive == 0 && currentCountEnemy == maxCountEnemy) {
-            canOpenGates = true;
+    IEnumerator SpawEnemyEvent() {
+        isSpawning = true;
+        yield return new WaitForSeconds(spawTime);
+
+        if (count < enemiesCount) {
+            SpawEnemy();
+        }
+
+        isSpawning = false;
+    }
+
+    void SpawEnemy() {
+        if (count < enemiesCount){
+            int index = UnityEngine.Random.Range(0, enemies.Length);
+            GameObject teste = Instantiate(enemies[index], transform.position, Quaternion.identity);
+            teste.GetComponent<EnemyClass>().spawner = this;
+            count++;
+            enemiesInRoom++;
         }
     }
 }

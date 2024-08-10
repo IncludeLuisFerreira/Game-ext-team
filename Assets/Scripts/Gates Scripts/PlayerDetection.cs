@@ -5,13 +5,14 @@ public class GatesScripts : MonoBehaviour
 {
     public GameObject GateOne;
     public GameObject GateTwo;
+    public SpawEnemys spawner;
 
     
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             GateOne.transform.position = new Vector3(GateOne.transform.position.x, -27.5f, 0);
             GateTwo.transform.position = new Vector3(GateTwo.transform.position.x, -27.5f, 0);
-            SpawEnemys.Instance.canSpaw = true;
+            spawner.trigger = true;
         }
     }
 
@@ -20,7 +21,7 @@ public class GatesScripts : MonoBehaviour
     }
 
     private IEnumerator CanOpenGates() {
-        if (SpawEnemys.Instance.canOpenGates == true) {
+        if (spawner.canOpenGates == true) {
             yield return new WaitForSeconds(1.0f);
             GateOne.transform.position = new Vector3(GateOne.transform.position.x, -37.5f, 0);
             GateTwo.transform.position = new Vector3(GateTwo.transform.position.x, -37.5f, 0);

@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     void Update()
     {    
         Defending();
-        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, whatIsGround);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, whatIsGround);
         anim.SetBool("Grounded", grounded == true);
         if (playerStates == States.Rolling || playerStates == States.Defende) {
             return;
