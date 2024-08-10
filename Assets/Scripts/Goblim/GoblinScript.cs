@@ -39,8 +39,10 @@ public class GoblinScript : MonoBehaviour
         cold = GetComponent<Collider2D>();
         GoblinEnemy = GetComponent<EnemyClass>();
         Goblim = gameObject.AddComponent<FollowingClass>();
+        Target = GameObject.Find("Player").transform;
 
         Goblim.Init(Target, anim, speed, maxDistance);
+
     }
 
     void Update()

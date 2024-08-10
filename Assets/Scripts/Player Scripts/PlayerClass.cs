@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerClass : MonoBehaviour
 {
@@ -37,5 +38,6 @@ public class PlayerClass : MonoBehaviour
    public void DestroyPlayer()
    {  
       Destroy(gameObject);
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
    }
 }

@@ -142,7 +142,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -7008412969330441016, guid: f84c06efa9991bd49b5553f54f400348, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -262,7 +262,6 @@ MonoBehaviour:
   state: 0
   speed: 2.95
   maxDistance: 10.45
-  minDistance: 13.01
   damage: 5
   facingLeft: 1
   canAttack1: 1
@@ -291,8 +290,8 @@ MonoBehaviour:
   reculForce: 2
   canBeDamage: 1
   dead: 0
-  anim: {fileID: 0}
-  rb: {fileID: 0}
+  currentHelth: 0
+  spawner: {fileID: 0}
 --- !u!114 &7688198730657988137
 MonoBehaviour:
   m_ObjectHideFlags: 0

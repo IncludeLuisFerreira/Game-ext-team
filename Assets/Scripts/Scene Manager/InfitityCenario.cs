@@ -6,10 +6,6 @@ public class InfitityCenario : MonoBehaviour
 {
     public float cenarioSpeed;
     
-    private void Start() {
-        
-    }
-
     private void Update() {
         MoveCenario();
     }

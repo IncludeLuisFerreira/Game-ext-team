@@ -8,11 +8,13 @@ public class TextManager : MonoBehaviour
     public Collider2D fruitExplain;
     public Collider2D jumpExplain;
     public Collider2D attackExplain;
+    public Collider2D fireExplain;
 
     [Header("Booleans")]
     public bool fruitText;
     public bool jumpText;
     public bool attackText;
+    public bool rollText;
 
     private void Start() {
         if (Instance == null) {
@@ -38,6 +40,12 @@ public class TextManager : MonoBehaviour
     public void AttackText() {
         if (!attackText) {
             Debug.Log("Aperte L para bater e K para defender.");
+        }
+    }
+
+    public void FireText() {
+        if (!rollText) {
+            Debug.Log("Aperte C para rolar.");
         }
     }
 }

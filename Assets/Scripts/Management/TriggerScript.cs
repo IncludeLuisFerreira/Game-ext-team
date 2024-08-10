@@ -18,6 +18,10 @@ public class TriggerScript : MonoBehaviour
                     TextManager.Instance.AttackText();
                     TextManager.Instance.attackText = true;
                     break;
+                case "FireTrigger":
+                    TextManager.Instance.FireText();
+                    TextManager.Instance.rollText = true;
+                    break;
             }
         }
     }
