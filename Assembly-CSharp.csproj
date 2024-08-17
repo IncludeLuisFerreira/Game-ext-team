@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Management\FireTrigger.cs" />
     <Compile Include="Assets\Scripts\Management\TriggerScript.cs" />
     <Compile Include="Assets\Scripts\Scene Manager\InfitityCenario.cs" />
+    <Compile Include="Assets\Scripts\DEATH.cs" />
     <Compile Include="Assets\Scripts\Classes Gerais\FollowingClass.cs" />
     <Compile Include="Assets\Scripts\Goblim\Gizmos.cs" />
   </ItemGroup>

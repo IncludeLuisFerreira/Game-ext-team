@@ -11,6 +11,9 @@ scopes = {
 	"last_search.310DEAF1" = "unity vers"
 	"OpenInspectorPreview.310DEAF1" = "0"
 	"currentGroup.310DEAF1" = "settings"
+	"last_search.3BE40471" = ""
+	"OpenInspectorPreview.3BE40471" = "0"
+	"currentGroup.3BE40471" = "scene"
 }
 providers = {
 	adb = {
